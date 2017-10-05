@@ -13,78 +13,148 @@ def fun_proverki(i,j):
             print("Неверный ввод , введите в диапозоне от ",i," до ",j)
     return n
 
-def fun_igra(game_type,kol_gamers):
-    system='cls'
+
+def fun_rez(name,summa,karta,karta_2,karta_3,karta_4):
+    print("\n текущие результат : ")
+    for i in range(0,len(name)):
+        print ("У ",name[i]," Имеется :")
+        print ("сумма очков : ",summa[i])
+        print ("имеющиеся карты на руках : ")
+        if i==0:
+            for j in range(0,len(karta)):
+                print(karta[j],' ')
+        if i==1:
+            for j in range(0,len(karta_2)):
+                print(karta_2[j],' ')
+        if i==2:
+            for j in range(0,len(karta_3)):
+                print(karta_3[j],' ')
+        if i==3:
+            for j in range(0,len(karta_4)):
+                print(karta_4[j],' ')
+        
+    
+    
+    
+def fun_pool(name,summa,karta,karta_2,karta_3,karta_4,number_pool,num_gamer):
+    if num_gamer==0:
+        print("\n Крупье раздает карты : ")
+        print("Вам ", name[num_gamer]," летит карта ... ")
+        karta.append(koloda.pop())
+        if karta[number_pool]==2:
+            print("прилетел Валет(2) ")
+        elif karta[number_pool]==3:
+            print("Прилетела Дама(3)")
+        elif karta[number_pool]==4:
+            print("Прилетел король(4)")
+        elif karta[number_pool]==11:
+            print("Прилел туз , 1 либо 11 ")
+        elif karta[number_pool]>=6 and karta[number_pool]<=10:
+            print("Прилетела карта ",karta[number_pool])
+        summa[num_gamer]+=(karta[number_pool])
+    if num_gamer==1:
+        print("\n Крупье раздает карты : ")
+        print("Вам ", name[num_gamer]," летит карта ... ")
+        karta_2.append(koloda.pop())
+        if karta_2[number_pool]==2:
+            print("прилетел Валет(2) ")
+        elif karta_2[number_pool]==3:
+            print("Прилетела Дама(3)")
+        elif karta_2[number_pool]==4:
+            print("Прилетел король(4)")
+        elif karta_2[number_pool]==11:
+            print("Прилел туз , 1 либо 11 ")
+        elif karta_2[number_pool]>=6 and karta_2[number_pool]<=10:
+            print("Прилетела карта ",karta[number_pool])
+        summa[num_gamer]+=(karta_2[number_pool])
+
+def fun_igra(game_type,kol_gamers,name,bank):
+    
+    global koloda
     global summa
-    global summa_2
-    summa=0
-    summa_2=0
+    global number_pool
+    number_pool=0
+    summa=[]
+    koloda = [2,3,4,6,7,8,9,10,11]*4
+    shuffle(koloda)
+    karta=[]
+    karta_2=[]
+    karta_3=[]
+    karta_4=[]
+    
+    system='cls'
     print("Начинаеться игра! : ")
     if game_type==1:
-        name_2='компьютер'
-        bank_2=bank
+        
+        name.append('компьютер')
+        bank.append(bank[0])
         while True:
+            
             print("Крупье раздает карты : ")
-            print("Вам ",name," летит карта ...")
-            karta_1=randint(2,14)
-            if karta_1>=2 and karta_1<=10:
-                print("прилетела " ,karta_1)
-            elif karta_1==11:
-                print("Прилетел Валет(2)")
-                karta_1=2
-            elif karta_1==12:
+            print("Вам ",name[0]," летит карта ...")
+            karta.append(koloda.pop())
+            if karta[0]==2 :
+                print("прилетел Валет(2) ")
+            elif karta[0]==3:
                 print("Прилетела Дама(3)")
-                karta_1=3
-            elif karta_1==13:
+            elif karta[0]==4:
                 print("Прилетел король(4)")
-                karta_1=4
-            elif karta_1==14:
+            elif karta[0]==11:
                 print("Прилел туз , 1 либо 11 ")
-                karta_1=1
-            summa=summa+karta_1
-            print("Сопернику ",name_2," летит карта ... ")
-            karta_2=randint(2,14)
-            if karta_2>=2 and karta_2<=10:
-                print("прилетела " ,karta_1)
-            elif karta_2==11:
-                print("Прилетел Валет(2)")
-                karta_2=2
-            elif karta_2==12:
+            elif karta[0]>=6 and karta[0]<=10:
+                print("Прилетела карта ",karta[0])
+            summa.append(karta[0])
+            
+            
+                
+            
+            print("Сопернику ",name[1]," летит карта ... ")
+            karta_2.append(koloda.pop())
+            if karta_2[0]==2 :
+                print("прилетел Валет(2) ")
+            elif karta_2[0]==3:
                 print("Прилетела Дама(3)")
-                karta_2=3
-            elif karta_2==13:
+            elif karta_2[0]==4:
                 print("Прилетел король(4)")
-                karta_2=4
-            elif karta_2==14:
+            elif karta_2[0]==11:
                 print("Прилел туз , 1 либо 11 ")
-                karta_2=1
-            summa_2=summa_2+karta_2
-            print("\n текущие результат : ")
-            print ("У ",name," набралось очков : ",summa)
-            print("У ",name_2," набралось очков : ",summa_2)
-            if summa<21 and summa_2<21:
-                print("Взять еше карту? 1-да , 2-нет")
-                flag_igra=fun_proverki(1,2)
-                if flag_igra==1:
-                    continue
-                else:
-                    break
-            if summa==21 or summa_2==21:
-                print("У нас есть победитель!!!")
+            elif karta_2[0]>=6 and karta_2[0]<=10:
+                print("Прилетела карта ",karta_2[0])
+            summa.append(karta_2[0])
+
+            break
+        fun_rez(name,summa,karta,karta_2,karta_3,karta_4)
+        number_pool+=1
+            
+        print("Далее : ")
+
+        fun_pool(name,summa,karta,karta_2,karta_3,karta_4,number_pool,0)
+        fun_pool(name,summa,karta,karta_2,karta_3,karta_4,number_pool,1)
+        
+        fun_rez(name,summa,karta,karta_2,karta_3,karta_4)
+        number_pool+=1
+        while True:
+            if summa[0]>21:
+                print("Перебор у ",name[0])
                 break
-            if summa>21 or summa_2>21:
-                print("У одного из игроков перебор!!!")
+            if summa[1]>21:
+                print("Перебор у ",name[1])
                 break
 
-        print("Игра закончена текуший результат : ")
-        if (21-summa)< (21-summa_2):
-            print("Победил ",name," с результатом в ",summa," очков")
-            print("Его банк теперь составляет : ",bank," !!!")
-        if (21-summa)> (21-summa_2):
-            print("Победил ",name_2," с результатом в ",summa_2," очков")
-            print("Его банк теперь составляет : ",bank_2," !!!")
-        if (21-summa)==(21-summa_2):
-            print("Ничья!!!")
+            print("Выберите действие : 1- взять еше карту 2-пасс")
+            if fun_proverki(1,2)==1:
+                fun_pool(name,summa,karta,karta_2,karta_3,karta_4,number_pool,0)
+                fun_pool(name,summa,karta,karta_2,karta_3,karta_4,number_pool,1)
+                fun_rez(name,summa,karta,karta_2,karta_3,karta_4)
+                number_pool+=1
+            else:
+                break
+                
+
+            
+            
+            
+    
 
 
 
@@ -94,54 +164,41 @@ def fun_igra(game_type,kol_gamers):
 
 
     
-def fun_accaunt(game_type,kol_gamers):
-    if game_type==1:
-        global name
-        global bank
-        name=input("Введите ваше имя! ")
-        print("Введите ваш начальный банк для игрока ",name," от 50 до 1000$ ")
-        bank=fun_proverki(50,1000)
-        return name,bank
-    if game_type==2 and kol_gamers==2:
-        global name_2
-        global bank_2
-        name=input("Введите ваше имя! ")
-        print("Введите ваш начальный банк для игрока ",name," от 50 до 1000$ ")
-        bank=fun_proverki(50,1000)
-        name_2=input("Введите имя второго игрока ")
-        print("Введите ваш начальный банк для игрока ",name_2," от 50 до 1000$ ")
-        bank_2=fun_proverki(50,1000)
-        return name,name_2,bank,bank_2
-    if game_type==2 and kol_gamers==3:
-        global name_3
-        global bank_3
-    
-        name=input("Введите ваше имя! ")
-        print("Введите ваш начальный банк для игрока ",name," от 50 до 1000$ ")
-        bank=fun_proverki(50,1000)
-        name_2=input("Введите имя второго игрока ")
-        print("Введите ваш начальный банк для игрока ",name_2," от 50 до 1000$ ")
-        bank_2=fun_proverki(50,1000)
-        name_3=input("Введите имя третьего игрока ")
-        print("Введите ваш начальный банк для игрока ",name_3," от 50 до 1000$ ")
-        bank_3=fun_proverki(50,1000)
-        return name,name_2,name_3,bank,bank_2,bank_3
-    if game_type==2 and kol_gamers==4:
-        global name_4
-        global bank_4
-        name=input("Введите ваше имя! ")
-        print("Введите ваш начальный банк для игрока ",name," от 50 до 1000$ ")
-        bank=fun_proverki(50,1000)
-        name_2=input("Введите имя второго игрока ")
-        print("Введите ваш начальный банк для игрока ",name_2," от 50 до 1000$ ")
-        bank_2=fun_proverki(50,1000)
-        name_3=input("Введите имя третьего игрока ")
-        print("Введите ваш начальный банк для игрока ",name_3," от 50 до 1000$ ")
-        bank_3=fun_proverki(50,1000)
-        name_4=input("Введите имя четвертого игрока ")
-        print("Введите ваш начальный банк для игрока ",name_4," от 50 до 1000$ ")
-        bank_4=fun_proverki(50,1000)
-        return name,name_2,name_3,name_4,bank,bank_2,bank_3,bank_4
+def fun_accaunt(game_type,kol_gamers,name,bank):  #Создание акаунта игроков
+    if game_type==1:  #Для одиночной игры
+        name.append(input("Введите ваше имя! "))
+        print("Введите ваш начальный банк для игрока ",name[0]," от 50 до 1000$ ")
+        bank.append(fun_proverki(50,1000))
+    if game_type==2 and kol_gamers==2: #для вдух игроков
+        name.append(input("Введите ваше имя! "))
+        print("Введите ваш начальный банк для игрока ",name[0]," от 50 до 1000$ ")
+        bank.append(fun_proverki(50,1000))
+        name.append(input("Введите имя второго игрока "))
+        print("Введите ваш начальный банк для игрока ",name[1]," от 50 до 1000$ ")
+        bank.append(fun_proverki(50,1000))
+    if game_type==2 and kol_gamers==3:  #для трех игроков
+        name.append(input("Введите ваше имя! "))
+        print("Введите ваш начальный банк для игрока ",name[0]," от 50 до 1000$ ")
+        bank.append(fun_proverki(50,1000))
+        name.append(input("Введите имя второго игрока "))
+        print("Введите ваш начальный банк для игрока ",name[1]," от 50 до 1000$ ")
+        bank.append(fun_proverki(50,1000))
+        name.append(input("Введите имя третьего игрока "))
+        print("Введите ваш начальный банк для игрока ",name[2]," от 50 до 1000$ ")
+        bank.append(fun_proverki(50,1000))
+    if game_type==2 and kol_gamers==4:  #для четырех игроков
+        name.append(input("Введите ваше имя! "))
+        print("Введите ваш начальный банк для игрока ",name[0]," от 50 до 1000$ ")
+        bank.append(fun_proverki(50,1000))
+        name.append(input("Введите имя второго игрока "))
+        print("Введите ваш начальный банк для игрока ",name[1]," от 50 до 1000$ ")
+        bank.append(fun_proverki(50,1000))
+        name.append(input("Введите имя третьего игрока "))
+        print("Введите ваш начальный банк для игрока ",name[2]," от 50 до 1000$ ")
+        bank.append(fun_proverki(50,1000))
+        name.append(input("Введите имя четвертого игрока "))
+        print("Введите ваш начальный банк для игрока ",name[3]," от 50 до 1000$ ")
+        bank.append(fun_proverki(50,1000))
     
     
 
@@ -150,16 +207,22 @@ def fun_accaunt(game_type,kol_gamers):
 print("Правила игры : ")
 print("Нужно набрать 21 очков с помошью карт ")
 print("Карты ранжированы следущим образом : ")
-print("2-10 соответсвтуют таким же количествам ")
-print("валет - 2 очка , дама - 3 очка , король-4 очка , туз 1 либо 11 очков на выбор")
-print("Изначально сдаеться одна карта каждому игроку ")
+print("6-10 соответсвтуют таким же количествам ")
+print("валет - 2 очка , дама - 3 очка , король-4 очка , туз либо 1 либо 11 очков на выбор")
+print("Изначально сдаеться две карта каждому игроку ")
 print("каждый ход каждый игрок выбирает брать ли еше карту ")
 print("Если будет перебор или недобор победит тот у ково будет ближайшее число к 21")
+global name
+name=[]
+global bank
+bank=[]
+
+
 
 
 while True:
     print("\n Для выбора режима игры введите : \n 1- игра с компьютером \n 2- игра с другими игроками \n 0-выход\n ")
-    game_type=fun_proverki(0,2)
+    game_type=fun_proverki(0,3)
 
     
     if game_type==0:
@@ -167,12 +230,15 @@ while True:
     if game_type==1:
         system='cls'
         print("Игра с компьютером!")
-        fun_accaunt(1,1)
-        fun_igra(1,1)
+        fun_accaunt(1,1,name,bank)
+        fun_igra(1,1,name,bank)
     if game_type==2:
         system='cls'
         print("Игра с другими игроками : ")
         print("Введите количество игроков от 2 до 4 ")
         kol_gamers=fun_proverki(2,4)
-        fun_accaunt(2,kol_gamers)
+        fun_accaunt(2,kol_gamers,name,bank)
+    if game_type==3:
+        system='cls'
+        fun_igra(1,1)
         
